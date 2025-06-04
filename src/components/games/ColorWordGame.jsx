@@ -4,24 +4,29 @@ const COLOR_WORDS = [
   'RED', 'YELLOW', 'BLUE', 'GREEN', 'PINK', 'ORANGE', 'PURPLE', 'WHITE', 'BLACK'
 ];
 
+// Corresponding colors for the words above (same order)
 const DISPLAY_COLORS = [
-  '#ff6666', '#ffbd55', '#ffff66', '#9de24f', '#87cefa', '#FFFFFF', '#000000'
+  '#FF0000', '#FFFF00', '#0000FF', '#00FF00', '#FFC0CB', '#FFA500', '#800080', '#FFFFFF', '#000000'
 ];
 
 export default function ColorWordGame({ onClose }) {
   const [gameState, setGameState] = useState('ready'); // ready, playing, finished
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
   const [totalTime, setTotalTime] = useState(0);
   const [gameWords, setGameWords] = useState([]);
 
-  // Generate random word-color combinations
+  // Generate random word-color combinations from the same 9-color set
   const generateGameWords = useCallback(() => {
     const words = [];
     for (let i = 0; i < 20; i++) {
-      const word = COLOR_WORDS[Math.floor(Math.random() * COLOR_WORDS.length)];
-      const color = DISPLAY_COLORS[Math.floor(Math.random() * DISPLAY_COLORS.length)];
+      // Choose word and color independently from the same color set
+      const wordIndex = Math.floor(Math.random() * COLOR_WORDS.length);
+      const colorIndex = Math.floor(Math.random() * COLOR_WORDS.length);
+      
+      const word = COLOR_WORDS[wordIndex];
+      const color = DISPLAY_COLORS[colorIndex];
+      
       words.push({ word, color, id: i });
     }
     return words;
@@ -32,28 +37,25 @@ export default function ColorWordGame({ onClose }) {
     setGameWords(words);
     setCurrentWordIndex(0);
     setStartTime(Date.now());
-    setEndTime(null);
     setTotalTime(0);
     setGameState('playing');
   };
 
-  const nextWord = () => {
+  const nextWord = useCallback(() => {
     if (currentWordIndex < gameWords.length - 1) {
       setCurrentWordIndex(currentWordIndex + 1);
     } else {
       // Game finished
       const endTime = Date.now();
-      setEndTime(endTime);
       setTotalTime((endTime - startTime) / 1000);
       setGameState('finished');
     }
-  };
+  }, [currentWordIndex, gameWords.length, startTime]);
 
   const resetGame = () => {
     setGameState('ready');
     setCurrentWordIndex(0);
     setStartTime(null);
-    setEndTime(null);
     setTotalTime(0);
     setGameWords([]);
   };
@@ -78,12 +80,28 @@ export default function ColorWordGame({ onClose }) {
       e.preventDefault();
       nextWord();
     }
-  }, [gameState, currentWordIndex, gameWords.length, startTime]);
+  }, [gameState, nextWord]);
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
     return () => document.removeEventListener('keydown', handleKeyPress);
   }, [handleKeyPress]);
+
+  // Special styling for white text on dark background
+  const getTextStyle = (color) => {
+    if (color === '#FFFFFF') {
+      return { 
+        color: color, 
+        textShadow: '2px 2px 4px rgba(0,0,0,0.8), -1px -1px 2px rgba(0,0,0,0.5)' 
+      };
+    } else if (color === '#FFFF00') {
+      return { 
+        color: color, 
+        textShadow: '2px 2px 4px rgba(0,0,0,0.6)' 
+      };
+    }
+    return { color: color };
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 font-mono">
@@ -120,6 +138,17 @@ export default function ColorWordGame({ onClose }) {
               </div>
             </div>
 
+            <div className="bg-gray-800 p-4 rounded-lg mb-6">
+              <h4 className="text-[#FEC006] font-bold mb-2">🎨 Color Words</h4>
+              <div className="flex flex-wrap justify-center gap-2 text-sm">
+                {COLOR_WORDS.map((word) => (
+                  <span key={word} className="bg-gray-700 px-3 py-1 rounded text-white">
+                    {word}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <button 
               onClick={startGame}
               className="bg-[#6CA6E6] text-black px-8 py-4 rounded-lg font-bold text-xl hover:bg-[#5A96D6] transition-colors"
@@ -142,7 +171,10 @@ export default function ColorWordGame({ onClose }) {
               </div>
               
               <div className="bg-gray-900 border-4 border-[#FEC006] rounded-xl p-8 mb-6">
-                <div className="text-8xl font-bold mb-4" style={{ color: gameWords[currentWordIndex]?.color }}>
+                <div 
+                  className="text-8xl font-bold mb-4" 
+                  style={getTextStyle(gameWords[currentWordIndex]?.color)}
+                >
                   {gameWords[currentWordIndex]?.word}
                 </div>
                 <p className="text-[#6CA6E6] text-lg">

@@ -67,6 +67,10 @@ export default function HomePage() {
     setMobileMenuOpen(false); // Close mobile menu when navigating
   };
 
+  const handleSubmitGame = () => {
+    alert('Submit Game feature coming soon! 🚀');
+  };
+
   // If About page is active, show About component
   if (currentPage === 'about') {
     return <About onClose={() => setCurrentPage('home')} />;
@@ -98,7 +102,12 @@ export default function HomePage() {
               >
                 About
               </button>
-              <a href="#" className="hover:text-[#FEC006] transition-colors duration-200">Submit Game</a>
+              <button 
+                onClick={handleSubmitGame}
+                className="hover:text-[#FEC006] transition-colors duration-200"
+              >
+                Submit Game
+              </button>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -129,7 +138,12 @@ export default function HomePage() {
               >
                 About
               </button>
-              <a href="#" className="block hover:text-[#FEC006] transition-colors duration-200 text-base">Submit Game</a>
+              <button 
+                onClick={handleSubmitGame}
+                className="block hover:text-[#FEC006] transition-colors duration-200 text-base text-left"
+              >
+                Submit Game
+              </button>
             </nav>
           </div>
         </div>
