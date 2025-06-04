@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const COLOR_WORDS = [
-  'RED', 'BLUE', 'GREEN', 'YELLOW', 'PURPLE', 'ORANGE', 'PINK', 'BROWN',
-  'BLACK', 'WHITE', 'GRAY', 'CYAN', 'MAGENTA', 'LIME', 'NAVY', 'GOLD',
-  'SILVER', 'MAROON', 'TEAL', 'VIOLET'
+  'RED', 'YELLOW', 'BLUE', 'GREEN', 'PINK', 'ORANGE', 'PURPLE', 'WHITE', 'BLACK'
 ];
 
 const DISPLAY_COLORS = [
-  '#FF0000', '#0000FF', '#00FF00', '#FFFF00', '#800080', '#FFA500', 
-  '#FFC0CB', '#A52A2A', '#000000', '#FFFFFF', '#808080', '#00FFFF',
-  '#FF00FF', '#00FF00', '#000080', '#FFD700', '#C0C0C0', '#800000',
-  '#008080', '#EE82EE'
+  '#ff6666', '#ffbd55', '#ffff66', '#9de24f', '#87cefa', '#FFFFFF', '#000000'
 ];
 
 export default function ColorWordGame({ onClose }) {

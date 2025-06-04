@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SnakeGame from './games/SnakeGame';
 import ColorWordGame from './games/ColorWordGame';
+import GameCard from './GameCard';
 
 export default function HomePage() {
   const [currentGame, setCurrentGame] = useState(null);
@@ -9,6 +10,7 @@ export default function HomePage() {
     { 
       id: 1, 
       name: 'Snake Game', 
+      image: '/images/snake-game.png',
       description: 'Classic snake game with pixel-perfect controls.',
       component: SnakeGame 
     },
@@ -21,6 +23,7 @@ export default function HomePage() {
     { 
       id: 3, 
       name: 'Color Word Challenge', 
+      image: '/images/color-word-game.png',
       description: 'Read color words displayed in different colors. Test your focus!',
       component: ColorWordGame 
     },
@@ -79,23 +82,11 @@ export default function HomePage() {
         <h3 className="text-2xl mb-6 text-[#FEC006] font-semibold">Featured Games</h3>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {games.map((game) => (
-            <div key={game.id} className="bg-[#EA00FF] p-4 rounded-xl border-4 border-[#3B0B0B] hover:scale-105 transition-transform duration-200 cursor-pointer">
-              <div className="h-40 bg-[#6CA6E6] rounded-md mb-3 flex items-center justify-center">
-                <span className="text-black font-bold text-xl">{game.name}</span>
-              </div>
-              <h4 className="text-xl font-bold text-black">{game.name}</h4>
-              <p className="text-sm text-black mt-1">{game.description}</p>
-              <button 
-                onClick={() => handlePlayGame(game)}
-                className={`mt-3 px-4 py-2 rounded-md text-sm font-bold transition-colors duration-200 ${
-                  game.component 
-                    ? 'bg-[#3B0B0B] text-white hover:bg-[#5A1010]' 
-                    : 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                }`}
-              >
-                {game.component ? 'Play Now' : 'Coming Soon'}
-              </button>
-            </div>
+            <GameCard 
+              key={game.id} 
+              game={game} 
+              onPlayClick={handlePlayGame}
+            />
           ))}
         </div>
       </section>
