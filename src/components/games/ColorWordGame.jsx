@@ -105,12 +105,12 @@ export default function ColorWordGame({ onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 font-mono">
-      <div className="bg-[#3B0B0B] p-8 rounded-xl border-4 border-[#FEC006] max-w-4xl w-full mx-4">
+      <div className="bg-[#3B0B0B] p-8 rounded-xl border-4 border-yellow-gold max-w-4xl w-full mx-4">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-bold text-[#FEC006]">Color Word Challenge</h2>
+          <h2 className="text-3xl font-bold text-yellow-gold">Color Word Challenge</h2>
           <button 
             onClick={onClose}
-            className="bg-[#EA00FF] text-white px-4 py-2 rounded hover:bg-[#D600E6] transition-colors font-bold"
+            className="bg-magenta text-white px-4 py-2 rounded hover:bg-violet transition-colors font-bold border-2 border-sky-blue"
           >
             Close
           </button>
@@ -118,18 +118,18 @@ export default function ColorWordGame({ onClose }) {
 
         {gameState === 'ready' && (
           <div className="text-center text-white">
-            <div className="bg-[#6CA6E6] text-black p-6 rounded-lg mb-6">
+            <div className="bg-light-blue text-black p-6 rounded-lg mb-6 border-2 border-steel-blue">
               <h3 className="text-2xl font-bold mb-4">📖 How to Play</h3>
               <div className="text-left space-y-3">
                 <p>• <strong>READ the WORD</strong>, not the color it's displayed in!</p>
                 <p>• Say each word out loud as fast as you can</p>
-                <p>• Press <kbd className="bg-black text-[#FEC006] px-2 py-1 rounded font-mono">SPACE</kbd> after saying each word</p>
+                <p>• Press <kbd className="bg-midnight text-yellow-gold px-2 py-1 rounded font-mono border border-yellow-gold">SPACE</kbd> after saying each word</p>
                 <p>• Complete all 20 words as quickly as possible!</p>
               </div>
             </div>
             
-            <div className="bg-gray-800 p-4 rounded-lg mb-6">
-              <h4 className="text-[#FEC006] font-bold mb-2">🏆 Scoring System</h4>
+            <div className="bg-slate-purple p-4 rounded-lg mb-6 border-2 border-lavender-gray">
+              <h4 className="text-yellow-gold font-bold mb-2">🏆 Scoring System</h4>
               <div className="text-sm space-y-1">
                 <p>⚡ Under 20 seconds: 🌟🌟🌟🌟🌟</p>
                 <p>🚀 20-25 seconds: ⭐⭐⭐⭐</p>
@@ -138,11 +138,11 @@ export default function ColorWordGame({ onClose }) {
               </div>
             </div>
 
-            <div className="bg-gray-800 p-4 rounded-lg mb-6">
-              <h4 className="text-[#FEC006] font-bold mb-2">🎨 Color Words</h4>
+            <div className="bg-slate-purple p-4 rounded-lg mb-6 border-2 border-lavender-gray">
+              <h4 className="text-yellow-gold font-bold mb-2">🎨 Color Words</h4>
               <div className="flex flex-wrap justify-center gap-2 text-sm">
                 {COLOR_WORDS.map((word) => (
-                  <span key={word} className="bg-gray-700 px-3 py-1 rounded text-white">
+                  <span key={word} className="bg-dark-purple px-3 py-1 rounded text-white border border-plum">
                     {word}
                   </span>
                 ))}
@@ -151,7 +151,7 @@ export default function ColorWordGame({ onClose }) {
 
             <button 
               onClick={startGame}
-              className="bg-[#6CA6E6] text-black px-8 py-4 rounded-lg font-bold text-xl hover:bg-[#5A96D6] transition-colors"
+              className="bg-light-blue text-black px-8 py-4 rounded-lg font-bold text-xl hover:bg-steel-blue transition-colors border-2 border-yellow-gold"
             >
               🎮 Start Challenge
             </button>
@@ -162,22 +162,22 @@ export default function ColorWordGame({ onClose }) {
           <div className="text-center">
             <div className="mb-6">
               <div className="flex justify-between items-center mb-4">
-                <span className="text-[#6CA6E6] font-bold">
+                <span className="text-light-blue font-bold">
                   Word {currentWordIndex + 1} of {gameWords.length}
                 </span>
-                <div className="bg-[#EA00FF] px-4 py-2 rounded text-white font-bold">
+                <div className="bg-magenta px-4 py-2 rounded text-white font-bold border border-yellow-gold">
                   {startTime ? `${((Date.now() - startTime) / 1000).toFixed(1)}s` : '0.0s'}
                 </div>
               </div>
               
-              <div className="bg-gray-900 border-4 border-[#FEC006] rounded-xl p-8 mb-6">
+              <div className="bg-midnight border-4 border-yellow-gold rounded-xl p-8 mb-6">
                 <div 
                   className="text-8xl font-bold mb-4" 
                   style={getTextStyle(gameWords[currentWordIndex]?.color)}
                 >
                   {gameWords[currentWordIndex]?.word}
                 </div>
-                <p className="text-[#6CA6E6] text-lg">
+                <p className="text-light-blue text-lg">
                   Say this word out loud, then press SPACE
                 </p>
               </div>
@@ -185,36 +185,36 @@ export default function ColorWordGame({ onClose }) {
               <div className="flex justify-center gap-4">
                 <button 
                   onClick={nextWord}
-                  className="bg-[#FEC006] text-black px-6 py-3 rounded-lg font-bold hover:bg-[#E6AB05] transition-colors"
+                  className="bg-yellow-gold text-black px-6 py-3 rounded-lg font-bold hover:bg-pale-yellow transition-colors border-2 border-orange"
                 >
                   📢 Said it! (SPACE)
                 </button>
               </div>
             </div>
 
-            <div className="bg-gray-800 p-4 rounded-lg">
+            <div className="bg-slate-purple p-4 rounded-lg border-2 border-lavender-gray">
               <div className="flex justify-center space-x-2 mb-2">
                 {Array.from({ length: gameWords.length }, (_, i) => (
                   <div
                     key={i}
                     className={`w-3 h-3 rounded-full ${
                       i < currentWordIndex 
-                        ? 'bg-[#6CA6E6]' 
+                        ? 'bg-light-blue' 
                         : i === currentWordIndex 
-                          ? 'bg-[#FEC006]' 
-                          : 'bg-gray-600'
+                          ? 'bg-yellow-gold' 
+                          : 'bg-dark-purple'
                     }`}
                   />
                 ))}
               </div>
-              <p className="text-gray-400 text-sm">Progress</p>
+              <p className="text-lavender-gray text-sm">Progress</p>
             </div>
           </div>
         )}
 
         {gameState === 'finished' && (
           <div className="text-center text-white">
-            <div className="bg-[#6CA6E6] text-black p-6 rounded-lg mb-6">
+            <div className="bg-light-blue text-black p-6 rounded-lg mb-6 border-2 border-steel-blue">
               <h3 className="text-3xl font-bold mb-4">🎉 Challenge Complete!</h3>
               <div className="text-6xl font-bold mb-4">{totalTime.toFixed(2)}s</div>
               <div className="text-2xl font-bold mb-4">
@@ -237,13 +237,13 @@ export default function ColorWordGame({ onClose }) {
             <div className="flex gap-4 justify-center">
               <button 
                 onClick={resetGame}
-                className="bg-[#EA00FF] text-white px-6 py-3 rounded-lg font-bold hover:bg-[#D600E6] transition-colors"
+                className="bg-magenta text-white px-6 py-3 rounded-lg font-bold hover:bg-violet transition-colors border-2 border-sky-blue"
               >
                 🔄 Play Again
               </button>
               <button 
                 onClick={onClose}
-                className="bg-gray-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-700 transition-colors"
+                className="bg-slate-purple text-white px-6 py-3 rounded-lg font-bold hover:bg-dark-purple transition-colors border-2 border-lavender-gray"
               >
                 🏠 Back to Arcade
               </button>

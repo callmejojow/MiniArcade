@@ -79,7 +79,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-black text-white font-mono">
       {/* Header - Mobile First */}
-      <header className="bg-[#3B0B0B] text-white border-b-4 border-[#FEC006]">
+      <header className="bg-[#3B0B0B] text-white border-b-4 border-yellow-gold">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-3 sm:py-4">
             {/* Logo - Responsive sizing */}
@@ -92,19 +92,19 @@ export default function HomePage() {
             <nav className="hidden md:flex space-x-4 lg:space-x-6 text-sm lg:text-lg">
               <button 
                 onClick={() => navigateToPage('home')}
-                className={`hover:text-[#FEC006] transition-colors duration-200 ${currentPage === 'home' ? 'text-[#FEC006]' : ''}`}
+                className={`hover:text-yellow-gold transition-colors duration-200 ${currentPage === 'home' ? 'text-yellow-gold' : ''}`}
               >
                 Home
               </button>
               <button 
                 onClick={() => navigateToPage('about')}
-                className={`hover:text-[#FEC006] transition-colors duration-200 ${currentPage === 'about' ? 'text-[#FEC006]' : ''}`}
+                className={`hover:text-yellow-gold transition-colors duration-200 ${currentPage === 'about' ? 'text-yellow-gold' : ''}`}
               >
                 About
               </button>
               <button 
                 onClick={handleSubmitGame}
-                className="hover:text-[#FEC006] transition-colors duration-200"
+                className="hover:text-yellow-gold transition-colors duration-200"
               >
                 Submit Game
               </button>
@@ -112,7 +112,7 @@ export default function HomePage() {
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden p-2 rounded-md hover:bg-[#5A1010] transition-colors"
+              className="md:hidden p-2 rounded-md hover:bg-plum transition-colors border border-yellow-gold"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <div className="w-5 h-5 flex flex-col justify-center items-center">
@@ -125,22 +125,22 @@ export default function HomePage() {
 
           {/* Mobile Navigation Menu */}
           <div className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-48 pb-4' : 'max-h-0 overflow-hidden'}`}>
-            <nav className="flex flex-col space-y-3 pt-3 border-t border-[#FEC006]/30">
+            <nav className="flex flex-col space-y-3 pt-3 border-t border-yellow-gold/30">
               <button 
                 onClick={() => navigateToPage('home')}
-                className={`block hover:text-[#FEC006] transition-colors duration-200 text-base text-left ${currentPage === 'home' ? 'text-[#FEC006]' : ''}`}
+                className={`block hover:text-yellow-gold transition-colors duration-200 text-base text-left ${currentPage === 'home' ? 'text-yellow-gold' : ''}`}
               >
                 Home
               </button>
               <button 
                 onClick={() => navigateToPage('about')}
-                className={`block hover:text-[#FEC006] transition-colors duration-200 text-base text-left ${currentPage === 'about' ? 'text-[#FEC006]' : ''}`}
+                className={`block hover:text-yellow-gold transition-colors duration-200 text-base text-left ${currentPage === 'about' ? 'text-yellow-gold' : ''}`}
               >
                 About
               </button>
               <button 
                 onClick={handleSubmitGame}
-                className="block hover:text-[#FEC006] transition-colors duration-200 text-base text-left"
+                className="block hover:text-yellow-gold transition-colors duration-200 text-base text-left"
               >
                 Submit Game
               </button>
@@ -150,7 +150,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section - Responsive */}
-      <section className="text-center py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-[#6CA6E6] text-black">
+      <section className="text-center py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-light-blue text-black border-b-4 border-steel-blue">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 sm:mb-4 lg:mb-6">
           Welcome to Edward's MiniArcade!
         </h2>
@@ -177,16 +177,16 @@ export default function HomePage() {
 
       {/* Coming Soon Section - Responsive Grid */}
       <section className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 bg-[#3B0B0B]">
-        <h3 className="text-xl sm:text-2xl lg:text-3xl mb-6 sm:mb-8 text-[#FEC006] font-semibold text-center">
+        <h3 className="text-xl sm:text-2xl lg:text-3xl mb-6 sm:mb-8 text-yellow-gold font-semibold text-center">
           More Games In Development
         </h3>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-          {['Tetris Clone', 'Pac-Man Mini', 'Space Invaders', 'Breakout'].map((name, id) => (
-            <div key={id} className="bg-gray-800 p-3 sm:p-4 rounded-lg border-2 border-gray-600 opacity-60">
-              <div className="h-16 sm:h-20 lg:h-24 bg-gray-700 rounded-md mb-2 sm:mb-3 flex items-center justify-center">
-                <span className="text-gray-400 text-xs sm:text-sm">Coming Soon</span>
+          {['IDK', 'IDK', 'IDK', 'IDK'].map((name, id) => (
+            <div key={id} className="bg-slate-purple p-3 sm:p-4 rounded-lg border-4 border-lavender-gray opacity-60">
+              <div className="h-16 sm:h-20 lg:h-24 bg-dark-purple rounded-md mb-2 sm:mb-3 flex items-center justify-center border border-midnight">
+                <span className="text-lavender-gray text-xs sm:text-sm">Coming Soon</span>
               </div>
-              <h5 className="text-xs sm:text-sm lg:text-base font-bold text-gray-400 text-center">
+              <h5 className="text-xs sm:text-sm lg:text-base font-bold text-cream text-center">
                 {name}
               </h5>
             </div>
@@ -195,10 +195,10 @@ export default function HomePage() {
       </section>
 
       {/* Footer - Responsive */}
-      <footer className="text-center py-6 sm:py-8 lg:py-10 px-4 text-[#6CA6E6] border-t-2 border-[#3B0B0B]">
+      <footer className="text-center py-6 sm:py-8 lg:py-10 px-4 text-steel-blue border-t-2 border-plum">
         <p className="text-sm sm:text-base lg:text-lg mb-2">Built with ❤️ by Edward Z</p>
-        <p className="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto">
-          © 2024 Edward's MiniArcade. All games are for entertainment purposes.
+        <p className="text-xs sm:text-sm text-lavender-gray max-w-2xl mx-auto">
+          © 2025 Edward's MiniArcade. All games are for entertainment purposes.
         </p>
       </footer>
 
