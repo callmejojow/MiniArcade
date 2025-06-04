@@ -12,6 +12,7 @@ export default function PasswordGame({ onClose }) {
   const [randomCountry, setRandomCountry] = useState('');
   const [floweyAlive, setFloweyAlive] = useState(true);
   const [lastWaterTime, setLastWaterTime] = useState(Date.now());
+  const [displayTimer, setDisplayTimer] = useState(0);
 
   // Generate random values for dynamic rules
   useEffect(() => {
@@ -119,6 +120,11 @@ export default function PasswordGame({ onClose }) {
     if (currentRule >= 6 && floweyAlive && password.includes('🌼') && gameState === 'playing') {
       const interval = setInterval(() => {
         const now = Date.now();
+        const timeSinceWater = Math.floor((now - lastWaterTime) / 1000);
+        
+        // Update display timer to force re-render
+        setDisplayTimer(timeSinceWater);
+        
         if (now - lastWaterTime > 30000) { // 30 seconds without watering
           setFloweyAlive(false);
           setGameState('failed');
@@ -131,6 +137,7 @@ export default function PasswordGame({ onClose }) {
   const waterFlowey = useCallback(() => {
     if (password.includes('🌼') && currentRule >= 6) {
       setLastWaterTime(Date.now());
+      setDisplayTimer(0); // Reset display timer
       // Add water drop temporarily
       setPassword(prev => prev + '💧');
       setTimeout(() => {
@@ -206,6 +213,7 @@ export default function PasswordGame({ onClose }) {
     // Reset watering timer if Flowey is first added to password
     if (!password.includes('🌼') && newPassword.includes('🌼') && currentRule >= 6) {
       setLastWaterTime(Date.now());
+      setDisplayTimer(0);
     }
     
     setPassword(newPassword);
@@ -218,6 +226,7 @@ export default function PasswordGame({ onClose }) {
     setFailedRules(new Set());
     setFloweyAlive(true);
     setLastWaterTime(Date.now());
+    setDisplayTimer(0);
   };
 
   const getRuleStatus = (ruleId) => {
@@ -354,7 +363,7 @@ export default function PasswordGame({ onClose }) {
                   </button>
                 </div>
                 <p className="text-cream text-sm mt-2">
-                  Last watered: {Math.floor((Date.now() - lastWaterTime) / 1000)}s ago (Water within 30s or I'll wilt!)
+                  Last watered: {displayTimer}s ago (Water within 30s or I'll wilt!)
                 </p>
               </div>
             )}
