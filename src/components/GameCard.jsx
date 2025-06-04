@@ -3,7 +3,7 @@ import React from 'react';
 export default function GameCard({ game, onPlayClick }) {
   return (
     <div className="bg-plum p-3 sm:p-4 lg:p-5 rounded-xl border-4 border-yellow-gold hover:scale-105 transition-transform duration-200 cursor-pointer w-full shadow-lg">
-      <div className="h-32 sm:h-36 lg:h-40 bg-light-blue rounded-md mb-3 flex items-end justify-center overflow-hidden border-2 border-steel-blue">
+      <div className="h-32 sm:h-36 lg:h-48 bg-light-blue rounded-md mb-3 flex items-end justify-center overflow-hidden border-2 border-steel-blue">
         {game.image ? (
           <img 
             src={game.image} 
