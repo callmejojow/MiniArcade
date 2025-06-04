@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SnakeGame from './games/SnakeGame';
 import ColorWordGame from './games/ColorWordGame';
+import PasswordGame from './games/PasswordGame';
 import GameCard from './GameCard';
 import About from './About';
 
@@ -19,9 +20,10 @@ export default function HomePage() {
     },
     { 
       id: 2, 
-      name: 'Block Jumper', 
-      description: 'Jump through challenging block obstacles.',
-      component: null // Coming soon
+      name: 'Password Game', 
+      image: '/images/password-game.png',
+      description: 'Can you create a password that meets increasingly absurd requirements?',
+      component: PasswordGame 
     },
     { 
       id: 3, 
