@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 const COMPOSERS = ['mozart', 'beethoven', 'debussy'];
-const ROMAN_NUMERALS = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
 const AFFIRMATIONS = ['iamloved', 'iamworthy', 'iamenough'];
 
 export default function PasswordGame({ onClose }) {
@@ -10,34 +9,18 @@ export default function PasswordGame({ onClose }) {
   const [gameState, setGameState] = useState('playing'); // playing, won, failed
   const [currentRule, setCurrentRule] = useState(1);
   const [failedRules, setFailedRules] = useState(new Set());
-  const [randomCaptcha, setRandomCaptcha] = useState('');
   const [randomCountry, setRandomCountry] = useState('');
   const [floweyAlive, setFloweyAlive] = useState(true);
   const [lastWaterTime, setLastWaterTime] = useState(Date.now());
 
   // Generate random values for dynamic rules
   useEffect(() => {
-    setRandomCaptcha(Math.random().toString(36).substring(2, 8).toUpperCase());
     const countries = ['france', 'spain', 'italy', 'germany', 'canada', 'japan', 'brazil', 'australia'];
     setRandomCountry(countries[Math.floor(Math.random() * countries.length)]);
   }, []);
 
-  // Check if Flowey needs watering
-  useEffect(() => {
-    // Only start timer if Flowey is in the password AND the rule is active AND game is still playing
-    if (currentRule >= 6 && floweyAlive && password.includes('🌼') && gameState === 'playing') {
-      const interval = setInterval(() => {
-        const now = Date.now();
-        if (now - lastWaterTime > 30000) { // 30 seconds without watering
-          setFloweyAlive(false);
-          setGameState('failed');
-        }
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [currentRule, lastWaterTime, floweyAlive, password, gameState]);
-
-  const rules = [
+  // Memoize rules array to prevent useCallback dependency changes
+  const rules = useMemo(() => [
     {
       id: 1,
       text: "Your password must be at least 5 characters.",
@@ -128,7 +111,22 @@ export default function PasswordGame({ onClose }) {
       text: "Your password must include an affirmation. Hint: youareloved, youareworthy, youareenough. Say any of these to yourself.",
       check: (pwd) => AFFIRMATIONS.some(affirmation => pwd.toLowerCase().includes(affirmation))
     }
-  ];
+  ], [randomCountry, floweyAlive]); // Only recreate if randomCountry or floweyAlive changes
+
+  // Check if Flowey needs watering
+  useEffect(() => {
+    // Only start timer if Flowey is in the password AND the rule is active AND game is still playing
+    if (currentRule >= 6 && floweyAlive && password.includes('🌼') && gameState === 'playing') {
+      const interval = setInterval(() => {
+        const now = Date.now();
+        if (now - lastWaterTime > 30000) { // 30 seconds without watering
+          setFloweyAlive(false);
+          setGameState('failed');
+        }
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [currentRule, lastWaterTime, floweyAlive, password, gameState]);
 
   const waterFlowey = useCallback(() => {
     if (password.includes('🌼') && currentRule >= 6) {
